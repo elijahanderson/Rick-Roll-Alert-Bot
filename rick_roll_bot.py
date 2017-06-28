@@ -62,9 +62,11 @@ def run_bot(reddit, comments_replied_to2) :
             if rick_roll_count > 5 :
                 comment.reply('**WARNING --** If you click on that link, you\'ll be Rick Rolled!\n\n' +
                               '/u/' + username + ' has some explaining to do... they\'ve Rick Rolled on ' +
-                              str(rick_roll_count) + ' other occasions!')
+                              str(rick_roll_count) + ' other occasions!\n\n' +
+                              '^^This is a bot reply. If you don\'t like it, just downvote and if it gets enough downvotes I\'ll gladly get rid of it.')
             else :
-                comment.reply('**WARNING --** If you click on that link, you\'ll be Rick Rolled!')
+                comment.reply('**WARNING --** If you click on that link, you\'ll be Rick Rolled!\n\n' +
+                              '^^This is a bot reply. If you don\'t like it, just downvote and if it gets enough downvotes I\'ll gladly get rid of it.')
 
             print('Replied to ' + comment.id)
 
