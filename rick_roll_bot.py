@@ -23,12 +23,12 @@ import os
 
 def authenticate() :
     print('Authenticating...')
-    reddit = praw.Reddit('RickRollBot', user_agent='rick_roll_bot_test v0.1')
+    reddit = praw.Reddit('RickRoll', user_agent='rick_roll_bot_test v0.1')
     print('Authenticated as ' + str(reddit.user.me()))
     return reddit
 
 
-def run_bot(reddit, comments_replied_to) :
+def run_bot(reddit, comments_replied_to2) :
 
     # Loop through the top 100 comments in all recent posts on a certain subreddit
 
@@ -36,11 +36,9 @@ def run_bot(reddit, comments_replied_to) :
 
         # check if youtube link is in any of those comments and comment has already been replied to
 
-        if 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' in comment.body or 'https://www.youtube.com/watch?v=6_b7RDuLwcI' in comment.body and comment.id not in comments_replied_to:
+        if ('https://www.youtube.com/watch?v=dQw4w9WgXcQ' in comment.body or 'https://www.youtube.com/watch?v=6_b7RDuLwcI' in comment.body) and comment.id not in comments_replied_to2:
 
             print('Comment containing Rick Roll found!!')
-
-
 
             # Fetch username of author of the comment to be replied to
             username = comment.author.name
@@ -71,11 +69,11 @@ def run_bot(reddit, comments_replied_to) :
             print('Replied to ' + comment.id)
 
             # Add comment ID to replied to list
-            comments_replied_to.append(comment.id)
+            comments_replied_to2.append(comment.id)
 
-            # Save comment ID to comments_replied_to.txt (the 'a' means I am appending to the file)
+            # Save comment ID to comments_replied_to2.txt (the 'a' means I am appending to the file)
 
-            with open('comments_replied_to.txt', 'a') as file:
+            with open('comments_replied_to2.txt', 'a') as file:
                 file.write(comment.id + '\n')
 
     # Sleep for ten seconds
@@ -94,31 +92,31 @@ def get_saved_comments() :
     # If .txt file with comment IDs doesnt exist, create one and return a blank array
 
     if not os.path.isfile('comments_replied_to2.txt') :
-        comments_replied_to = []
+        comments_replied_to2 = []
 
     else :
         with open('comments_replied_to2.txt', 'r') as file :
 
             # Read contents of the file
-            comments_replied_to = file.read()
+            comments_replied_to2 = file.read()
 
             # split() by new line
-            comments_replied_to = comments_replied_to.split('\n')
+            comments_replied_to2 = comments_replied_to2.split('\n')
 
             # Filter out the empty string at end of the .txt file
             # filter() filters out the first argument from the second argument
             # comments_replied_to = filter('', comments_replied_to)
 
-    return comments_replied_to
+    return comments_replied_to2
 
 reddit = authenticate()
 
 # To prevent spam, create list of comments already replied to
 
-comments_replied_to = get_saved_comments()
-print(comments_replied_to)
+comments_replied_to2 = get_saved_comments()
+print(comments_replied_to2)
 
 # To automatically reply to comments, a while loop is used
 
 while True :
-    run_bot(reddit, comments_replied_to)
+    run_bot(reddit, comments_replied_to2)
