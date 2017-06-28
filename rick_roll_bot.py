@@ -1,4 +1,4 @@
-# Rick Roll Bot - warns reddit users if a comment link to "Never Gonna Give You Up" by Rick Astley on Youtube
+# Rick Roll Bot - warns reddit users if a comment links to "Never Gonna Give You Up" by Rick Astley on Youtube
 #
 # By Eli Anderson
 #
@@ -30,9 +30,9 @@ def authenticate() :
 
 def run_bot(reddit, comments_replied_to2) :
 
-    # Loop through the top 100 comments in all recent posts on a certain subreddit
+    # Loop through the comments in all recent posts in all subreddits
 
-    for comment in reddit.subreddit('test').comments(limit=100) :
+    for comment in reddit.subreddit('all').comments(limit=None) :
 
         # check if youtube link is in any of those comments and comment has already been replied to
 
@@ -62,7 +62,7 @@ def run_bot(reddit, comments_replied_to2) :
             if rick_roll_count > 5 :
                 comment.reply('**WARNING --** If you click on that link, you\'ll be Rick Rolled!\n\n' +
                               '/u/' + username + ' has some explaining to do... they\'ve Rick Rolled on ' +
-                              rick_roll_count + ' other occasions!')
+                              str(rick_roll_count) + ' other occasions!')
             else :
                 comment.reply('**WARNING --** If you click on that link, you\'ll be Rick Rolled!')
 
